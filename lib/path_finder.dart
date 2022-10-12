@@ -27,9 +27,9 @@ class PathFinder {
 
   void _weightCalc(MapPoint end) {
     int currentWeight = 1;
-    bool isEndFounded = false;
+
     Set<MapPoint> previousNeighbors = {_weights.keys.first};
-    while (!isEndFounded) {
+    while (true) {
       Set<MapPoint> newNeighbors = {};
       for (var n in previousNeighbors) {
         newNeighbors.addAll(n
@@ -42,13 +42,13 @@ class PathFinder {
           _weights[nn] = currentWeight;
         }
         if (nn == end) {
-          isEndFounded = true;
+          _weights[end] = currentWeight + 1;
+          return;
         }
       }
       previousNeighbors = newNeighbors;
       currentWeight++;
     }
-    _weights[end] = currentWeight;
   }
 
   List<MapPoint> _resolvePath(MapPoint start, MapPoint end) {
