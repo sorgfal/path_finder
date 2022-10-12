@@ -1,11 +1,11 @@
+import 'package:path_finder/map_point.dart';
+
 class MapCell {
-  final int x;
-  final int y;
+  final MapPoint point;
   final String char;
 
-  MapCell(this.x, this.y, this.char);
+  MapCell(x, y, this.char) : point = MapPoint(x, y);
 
-  String get coordKey => "$x:$y";
   @override
   String toString() => char;
 }

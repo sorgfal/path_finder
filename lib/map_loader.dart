@@ -11,14 +11,9 @@ class MapLoader {
   );
 
   MapModel buildMap() {
-    var height = (mapString.length / width).toInt();
-    int x = 0;
-    List<MapCell> cells = [];
-    for (var i = 0; i < mapString.length; i++) {
-      cells.add(MapCell(i ~/ width, i % width, mapString[i]));
-    }
-    var mapModel = MapModel(cells);
-    mapModel.indexCells();
-    return mapModel;
+    return MapModel([
+      for (var i = 0; i < mapString.length; i++)
+        MapCell(i % width, i ~/ width, mapString[i])
+    ], width);
   }
 }

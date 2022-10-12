@@ -1,23 +1,19 @@
 import 'package:path_finder/map_cell.dart';
+import 'package:path_finder/map_point.dart';
 
 class MapModel {
+  final int width;
   final List<MapCell> cells;
-  late Map<String, MapCell> _indexedCells;
-  MapModel(this.cells);
-
-  void indexCells() {
-    for (var c in cells) {
-      _indexedCells[c.coordKey] = c;
-    }
+  late Map<MapPoint, MapCell> _indexedCells;
+  MapModel(this.cells, this.width) {
+    buildIndexCells();
   }
 
-  _MapModelIndexHelper operator [](x) => _MapModelIndexHelper(x, _indexedCells);
-}
+  void buildIndexCells() {
+    _indexedCells = Map.fromEntries(
+      [for (var c in cells) MapEntry(c.point, c)],
+    );
+  }
 
-class _MapModelIndexHelper {
-  final int x;
-  final Map<String, MapCell> cells;
-
-  _MapModelIndexHelper(this.x, this.cells);
-  MapCell? operator [](y) => cells["$x:$y"];
+  MapCell? operator [](MapPoint x) => _indexedCells[x];
 }
