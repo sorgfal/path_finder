@@ -19,22 +19,11 @@ void main(List<String> arguments) {
   mapPrinter.addMapLayer(
     MapModel(
         pathFinder.weightMap.entries
-            .map((e) => MapCell(
-                  e.key.x,
-                  e.key.y,
-                  e.value.toString(),
-                ))
+            .map((e) => MapCell(e.key.x, e.key.y, e.value.toString()))
             .toList(),
         6),
   );
-  mapPrinter.addMapLayer(MapModel(
-      shortPath
-          .map((e) => MapCell(
-                e.x,
-                e.y,
-                '*',
-              ))
-          .toList(),
-      6));
+  mapPrinter.addMapLayer(
+      MapModel(shortPath.map((e) => MapCell(e.x, e.y, '*')).toList(), 6));
   print(mapPrinter.buildString(6, 6));
 }
